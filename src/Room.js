@@ -2,16 +2,13 @@ import React from 'react'
 
 import Login from './Login'
 import SignUp from './SignUp'
-import Room from './Room'
 
-const App = () => {
+const Room = () => {
     return (
         <>
-            <Login />
-            <SignUp />
-            <Room />
+            <h1>Room</h1>
         </>
     )
 }
 
-export default App
+export default Room
