@@ -1,70 +1,70 @@
-# Getting Started with Create React App
+# Git 運用ルール
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 目的
 
-## Available Scripts
+- Git の使い方を身につける
+- お互いのコードを打ち消し合わないような運用にする
+- master ブランチ develop ブランチを複数人で編集しない
+- 全員がいまなにをやってるのかわかるようにする
 
-In the project directory, you can run:
+## 基本
 
-### `yarn start`
+- master : リリースブランチ
+  - 基本的にここにコミットはしない
+  - リリース単位で develop のマージコミットが並ぶはず
+- develop : 開発ブランチ
+  - トピックブランチのマージコミットが並ぶ予定
+  - GitHub 側から README をいじった時などここにコミットされる可能性がある
+  - 「完全に 1 コミットで終わる編集」 ならばマージしないでコミットしてもいいかな
+    - 複数人でコミットしあうことがないように  
+      コミュニケーションを取りつつやること
+- トピックブランチ
+  - feat/xxxxx : 機能（ここにテストまで入れてほしい）
+  - test/xxxxx : テストコード（別になってしまった場合）
+  - fix/xxXxxx : 不具合修正
+  - hotfix/xxx : Highest Priority で直すやつ
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+（ブランチ名はスネークケースでもキャメルケースでも可）
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- スネークケース：Ruby みたいな
+  - `fix/delete_log_string`
+  - `feat/create_new_map`
 
-### `yarn test`
+## ブランチの切り方
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+master
+└develop
+ └トピックブランチ
+```
 
-### `yarn build`
+- master が最上位
+  - develop ブランチのマージコミットが並ぶ
+  - ここから切れるブランチは`hotfix`のみ
+- develop が主にマージされる
+  - トピックブランチのマージコミットが並ぶ（はず）
+  - ここからトピックブランチをきる
+- トピックブランチでのみ開発する
+  - ブランチ名と作業が一致するように
+  - 作業が長引くなら 1 日 1 回は push しよう
+  - こまめにコミットしよう
+    - できれば意味のある単位で
+      - 変数名変え：変えた分をまとめて
+    - 貯めこむとろくなことがない＆コンフリクトで無駄な工数発生
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## develop オペレーション
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. develop を最新にする（pull でも fetch&rebase でも）
+2. トピックブランチをチェックアウト
+3. develop ブランチを rebase!!!
+4. develop の最新から自分のトピックブランチが伸びていることを確認  
+   違っていたらなんかおかしいから相談しよう
+5. コンフリクトした時はひとりで悩まず誰かを呼んでいっしょに解消 ここで直しておくと merge 時にコンフリクトしないので安心
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## コミットメッセージ
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- 日本語で OK
+- なにをやったのかわかるように
+  - ブランチ名でなにをやっているのかが明確ならばざっくりしていても大丈夫
+  - OK：Bookmark ボタンを追加・アイコン位置調整
+  - NG：no change・pull できない・commit・change posterlist
