@@ -1,4 +1,4 @@
-import * as firebase from 'firebase/app'
+import firebase from 'firebase/app';
 import 'firebase/auth'
 
 const firebaseConfig={
@@ -10,6 +10,5 @@ const firebaseConfig={
     appId: "1:1060407826406:web:1faccd18d27ac7cae4a827"
 }
 
-firebase / initializeApp(firebaseConfig)
-
+firebase.initializeApp(firebaseConfig)
 export default firebase
