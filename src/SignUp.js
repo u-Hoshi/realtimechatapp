@@ -7,8 +7,6 @@ const SignUp = () => {
     
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log('email:', email)
-        console.log('password', password)
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .catch(err => {
                 console.log('error:',err)
@@ -27,6 +25,7 @@ const SignUp = () => {
                         placeholder='Email'
                         onChange={e => {
                             setEmail(e.target.value)
+                            console.log(e.target.value)
                         }}
                     />
                 </div>
