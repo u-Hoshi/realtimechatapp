@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import firebase from './config/firebase'
+import { AuthContext } from './AuthService'
 
 const SignUp = () => {
     const [email ,setEmail] = useState('')
-    const [password ,setPassword]= useState('')
+    const [password, setPassword] = useState('')
+    const [name,setName]= useState('')
     
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -12,10 +14,26 @@ const SignUp = () => {
                 console.log('error:',err)
             })
     }
+
+
     return (
         <div>
             <h1>Sign Up</h1>
             <form onSubmit={handleSubmit}>
+
+                <div>
+                    <label htmlFor='name'>Name</label>
+                    <input
+                        name='name'
+                        type='name'
+                        id='name'
+                        placeholder='Name'
+                        onChange={e => {
+                            setName(e.target.value)
+                        }}
+                        />
+
+                </div>
                 <div>
                     <label htmlFor='email'>E-mail</label>
                     <input
