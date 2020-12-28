@@ -1,6 +1,7 @@
-import React, { useContext, useState } from 'react'
+import React, { useState,useContext } from 'react'
 import firebase from './config/firebase'
 import { AuthContext } from './AuthService'
+import { Redirect } from 'react-router-dom'
 
 const SignUp = () => {
     const [email ,setEmail] = useState('')
@@ -10,11 +11,20 @@ const SignUp = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then(({ user }) => {
+                user.updateProfile({
+                    displayName: name
+                })
+            })
             .catch(err => {
-                console.log('error:',err)
+                console.log('error:', err)
+                alert("サインアップ失敗です")
             })
     }
-
+    const user = useContext(AuthContext)
+    if (user) {
+        return <Redirect to='/' />
+    }
 
     return (
         <div>
